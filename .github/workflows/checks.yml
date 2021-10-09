@@ -27,16 +27,15 @@ name: Lint, Test and Test Packages
 jobs:
   lint:
     name: Lint
+
     runs-on: ubuntu-latest
+    container: circleci/node:16.3.0-browsers
+
     env:
       FORCE_COLOR: '1'
-#    container:
-#      - image: circleci/node:16.3.0-browsers
+
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.3.0-browsers'
       - run: sudo npm i -g lerna
 #      - checkout
 #      - *restore_node_modules_cache
