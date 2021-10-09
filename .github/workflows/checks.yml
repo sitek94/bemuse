@@ -1,0 +1,101 @@
+on: [push]
+
+#references:
+#  restore_node_modules_cache: &restore_node_modules_cache
+#    restore_cache:
+#      keys:
+#        - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+#        - deps-{{ .Branch }}-
+#        - deps-
+#  bootstrap: &bootstrap
+#    run:
+#      name: lerna bootstrap
+#      command: lerna bootstrap && lerna run prepare
+#  save_node_modules_cache: &save_node_modules_cache
+#    save_cache:
+#      key: deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+#      paths:
+#        - ./node_modules
+#        - ./packages/bemuse-indexer/node_modules
+#        - ./packages/bemuse-notechart/node_modules
+#        - ./packages/bemuse-tools/node_modules
+#        - ./packages/bms/node_modules
+#        - ./packages/bmson/node_modules
+
+name: Lint, Test and Test Packages
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    env:
+      FORCE_COLOR: '1'
+#    container:
+#      - image: circleci/node:16.3.0-browsers
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.3.0-browsers'
+      - run: sudo npm i -g lerna
+#      - checkout
+#      - *restore_node_modules_cache
+#      - *bootstrap
+#      - *save_node_modules_cache
+#      - run:
+#          name: danger
+#          command: |
+#            if [ "$DANGER_GITHUB_API_TOKEN" ]
+#            then
+#              yarn danger ci
+#            fi
+#      - run:
+#          name: typecheck
+#          command: |
+#            yarn workspace bemuse tsc
+#  test:
+#    working_directory: ~/bemuse
+#    environment:
+#      FORCE_COLOR: '1'
+#    docker:
+#      - image: circleci/node:16.3.0-browsers
+#    steps:
+#      - run: sudo npm i -g lerna
+#      - checkout
+#      - *restore_node_modules_cache
+#      - *bootstrap
+#      - *save_node_modules_cache
+#      - run:
+#          name: test
+#          command: yarn test
+#      - run:
+#          name: codecov
+#          command: yarn codecov
+#  test_packages:
+#    working_directory: ~/bemuse
+#    environment:
+#      FORCE_COLOR: '1'
+#    docker:
+#      - image: circleci/node:16.3.0-browsers
+#    steps:
+#      - run: sudo npm i -g lerna
+#      - checkout
+#      - *restore_node_modules_cache
+#      - *bootstrap
+#      - *save_node_modules_cache
+#      - run:
+#          name: lerna run test
+#          command: lerna run test
+#      - run:
+#          name: codecov
+#          command: yarn codecov
+
+
+#workflows:
+#  version: 2
+#  tests:
+#    jobs:
+#      - lint
+#      - test
+#      - test_packages
+
